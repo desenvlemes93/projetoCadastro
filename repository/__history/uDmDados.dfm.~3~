@@ -1,0 +1,72 @@
+object DataModule1: TDataModule1
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 150
+  Width = 215
+  object dsClietne: TDataSource
+    DataSet = cdsCadastroCliente
+    Left = 40
+    Top = 24
+  end
+  object cdsCadastroCliente: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 112
+    Top = 24
+    object cdsCadastroClienteId: TIntegerField
+      FieldName = 'Id'
+    end
+    object cdsCadastroClienteNome: TStringField
+      FieldName = 'Nome'
+      Size = 60
+    end
+    object cdsCadastroClienteIdentidade: TStringField
+      FieldName = 'Identidade'
+      Size = 15
+    end
+    object cdsCadastroClienteemail: TStringField
+      FieldName = 'email'
+      Size = 60
+    end
+    object cdsCadastroClienteCEP: TStringField
+      FieldName = 'CEP'
+      Size = 15
+    end
+    object cdsCadastroClienteLogradouro: TStringField
+      FieldName = 'Logradouro'
+      Size = 60
+    end
+    object cdsCadastroClientenumero: TStringField
+      FieldName = 'numero'
+      Size = 10
+    end
+    object cdsCadastroClientecomplemento: TStringField
+      FieldName = 'complemento'
+      Size = 60
+    end
+    object cdsCadastroClientebairro: TStringField
+      FieldName = 'bairro'
+      Size = 60
+    end
+    object cdsCadastroClienteCidade: TStringField
+      FieldName = 'Cidade'
+      Size = 80
+    end
+    object cdsCadastroClienteEstado: TStringField
+      FieldName = 'Estado'
+      Size = 2
+    end
+    object cdsCadastroClientePais: TStringField
+      FieldName = 'Pais'
+      Size = 10
+    end
+    object cdsCadastroClienteCPF: TStringField
+      FieldName = 'CPF'
+      Size = 15
+    end
+  end
+end

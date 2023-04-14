@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/03/12 08:20:41.000.131,=C:\Users\ricardo.filho\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/04/12 09:43:58.000.352,=C:\Users\ricardo.filho\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/04/12 10:29:13.000.492,C:\Ricardo\ProjetoDelphi\uFormPrincipal.pas=C:\Users\ricardo.filho\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/04/12 10:29:13.000.492,C:\Ricardo\ProjetoDelphi\uFormPrincipal.dfm=C:\Users\ricardo.filho\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2023/04/12 10:29:25.000.109,C:\Ricardo\ProjetoDelphi\ProjetoCadastro.dproj=C:\Users\ricardo.filho\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2023/04/12 10:30:43.000.643,=C:\Ricardo\ProjetoDelphi\Unit1.pas</Transaction>
+    <Transaction>2023/04/12 10:37:02.000.809,C:\Ricardo\ProjetoDelphi\repository\udmDados.pas=C:\Ricardo\ProjetoDelphi\Unit1.pas</Transaction>
+    <Transaction>2023/04/12 10:37:02.000.809,C:\Ricardo\ProjetoDelphi\repository\udmDados.dfm=C:\Ricardo\ProjetoDelphi\Unit1.dfm</Transaction>
+    <Transaction>2023/04/12 10:49:06.000.220,=C:\Ricardo\ProjetoDelphi\Unit1.pas</Transaction>
+    <Transaction>2023/04/12 10:50:39.000.161,C:\Ricardo\ProjetoDelphi\repository\udmModule.pas=C:\Ricardo\ProjetoDelphi\Unit1.pas</Transaction>
+    <Transaction>2023/04/12 10:50:39.000.161,C:\Ricardo\ProjetoDelphi\repository\udmModule.dfm=C:\Ricardo\ProjetoDelphi\Unit1.dfm</Transaction>
+    <Transaction>2023/04/12 10:51:07.000.907,C:\Ricardo\ProjetoDelphi\repository\udmDados.pas=</Transaction>
+    <Transaction>2023/04/12 10:53:48.000.522,C:\Ricardo\ProjetoDelphi\repository\udmModule.pas=</Transaction>
+    <Transaction>2023/04/12 10:54:06.000.532,=C:\Ricardo\ProjetoDelphi\Unit1.pas</Transaction>
+    <Transaction>2023/04/12 10:54:55.000.699,C:\Ricardo\ProjetoDelphi\repository\uDmDados.dfm=C:\Ricardo\ProjetoDelphi\Unit1.dfm</Transaction>
+    <Transaction>2023/04/12 10:54:55.000.699,C:\Ricardo\ProjetoDelphi\repository\uDmDados.pas=C:\Ricardo\ProjetoDelphi\Unit1.pas</Transaction>
+    <Transaction>2023/04/13 08:51:28.000.473,=C:\Ricardo\ProjetoDelphi\Unit1.pas</Transaction>
+    <Transaction>2023/04/13 08:55:09.000.483,C:\Ricardo\ProjetoDelphi\util\uformatacao.pas=C:\Ricardo\ProjetoDelphi\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

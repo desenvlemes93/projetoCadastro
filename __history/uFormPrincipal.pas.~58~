@@ -1,0 +1,273 @@
+unit uFormPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Vcl.Grids,
+  Vcl.DBGrids,uDmDados, Vcl.Mask,uformatacao, Datasnap.DBClient, Xml.xmldom,
+  Xml.XMLIntf, Xml.XMLDoc;
+
+
+type
+  TForm2 = class(TForm)
+    GroupBox1: TGroupBox;
+    Label1: TLabel;
+    edtId: TEdit;
+    btnSalvar: TButton;
+    btnExcluir: TButton;
+    btnSair: TButton;
+    Label2: TLabel;
+    edtNome: TEdit;
+    Label3: TLabel;
+    edtRG: TEdit;
+    Label4: TLabel;
+    edtEmail: TEdit;
+    Label5: TLabel;
+    GroupBox2: TGroupBox;
+    Label6: TLabel;
+    edtCep: TEdit;
+    buscarCep: TButton;
+    edtLogradouro: TEdit;
+    Label7: TLabel;
+    Label8: TLabel;
+    edtNumero: TEdit;
+    Label9: TLabel;
+    edtComplemento: TEdit;
+    Label10: TLabel;
+    edtBairro: TEdit;
+    Label11: TLabel;
+    edtCidade: TEdit;
+    Label12: TLabel;
+    Label13: TLabel;
+    edtPais: TEdit;
+    edtEstado: TEdit;
+    DBGrid1: TDBGrid;
+    mskeditCPF: TMaskEdit;
+    btnNovo: TButton;
+    Button1: TButton;
+    mskTelefone: TMaskEdit;
+    Label14: TLabel;
+    procedure btnSairClick(Sender: TObject);
+    procedure buscarCepClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure mskeditCPFExit(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+    procedure habilitarBotoes();
+    procedure DBGrid1DblClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure limparRegistro();
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+
+{$R *.dfm}
+procedure TForm2.buscarCepClick(Sender: TObject);
+var
+ uRepository : TDataModule1;
+begin
+  if edtCep.Text <> EmptyStr then
+  begin
+    try
+      uRepository           := TDataModule1.Create(Nil);
+
+      uRepository.buscarCep(edtCep.Text);
+      edtLogradouro.Text := uRepository.GetLogradouro;
+      edtBairro.Text     := uRepository.GetBairro;
+      edtCidade.Text     := uRepository.GetLocalidade;
+      edtEstado.Text     := uRepository.GetUF;
+    finally
+      FreeAndNil(uRepository);
+    end;
+  end;
+end;
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+  limparRegistro();
+end;
+
+procedure TForm2.DBGrid1DblClick(Sender: TObject);
+var
+	i: Integer;
+	aux: string;
+begin
+  DataModule1.cdsCadastroCliente.Edit;
+	for i := 0 to DBGrid1.SelectedRows.Count -1 do
+	begin
+    edtId.Text         := 	DataModule1.cdsCadastroCliente.FieldByName('ID').AsString;
+    edtNome.Text       := 	DataModule1.cdsCadastroCliente.FieldByName('NOME').AsString;
+    edtRG.Text         :=  	DataModule1.cdsCadastroCliente.FieldByName('Identidade').AsString;
+    edtEmail.Text      :=  	DataModule1.cdsCadastroCliente.FieldByName('email').AsString;
+    if  Length(DataModule1.cdsCadastroCliente.FieldByName('CPF').AsString) = 11 then
+    begin
+      mskeditCPF.Text    := uformatacao.formacpf(DataModule1.cdsCadastroCliente.FieldByName('CPF').AsString);
+    end
+    else
+    begin
+      mskeditCPF.Text    := uformatacao.formacnpj(DataModule1.cdsCadastroCliente.FieldByName('CPF').AsString);
+    end;
+
+
+
+    edtCep.Text        := 	DataModule1.cdsCadastroCliente.FieldByName('cep').AsString;
+    edtLogradouro.Text := 	DataModule1.cdsCadastroCliente.FieldByName('logradouro').AsString;
+    edtComplemento.Text:= 	DataModule1.cdsCadastroCliente.FieldByName('complemento').AsString;
+    edtNumero.Text     :=  	DataModule1.cdsCadastroCliente.FieldByName('numero').AsString;
+    edtBairro.Text     := 	DataModule1.cdsCadastroCliente.FieldByName('bairro').AsString;
+    edtCidade.Text     := 	DataModule1.cdsCadastroCliente.FieldByName('cidade').AsString;
+    edtEstado.Text     := 	DataModule1.cdsCadastroCliente.FieldByName('estado').AsString;
+    edtPais.Text       := 	DataModule1.cdsCadastroCliente.FieldByName('pais').AsString;
+	end;
+
+end;
+
+procedure TForm2.habilitarBotoes;
+begin
+  btnSalvar.Enabled := true;
+  btnExcluir.Enabled := true;
+end;
+
+procedure TForm2.limparRegistro;
+var
+   i: Integer;
+begin
+
+    for i := 0 to ComponentCount -1 do
+    begin
+      if (Components[i] is TEdit) then
+          (Components[i] as TEdit).Clear;
+      if (Components[i] is TMaskEdit) then
+          (Components[i] as TMaskEdit).Clear;
+    end;
+end;
+
+procedure TForm2.btnSalvarClick(Sender: TObject);
+begin
+  try
+    if edtNome.Text <> EmptyStr then
+    begin
+      DataModule1.salvarCadastroCliente(edtId.Text,
+                                        edtNome.Text,
+                                        uformatacao.retirarPontuacao(mskeditCPF.Text),
+                                        edtRG.Text,
+                                        edtEmail.Text,
+                                        edtCep.Text,
+                                        edtLogradouro.Text,
+                                        edtNumero.Text,
+                                        edtComplemento.Text,
+                                        edtBairro.Text,
+                                        edtCidade.Text,
+                                        edtEstado.Text,
+                                        edtPais.text,
+                                        mskTelefone.Text);
+
+     DataModule1.salvarCadastroXml(edtId.Text,
+                                        edtNome.Text,
+                                        uformatacao.retirarPontuacao(mskeditCPF.Text),
+                                        edtRG.Text,
+                                        edtEmail.Text,
+                                        edtCep.Text,
+                                        edtLogradouro.Text,
+                                        edtNumero.Text,
+                                        edtComplemento.Text,
+                                        edtBairro.Text,
+                                        edtCidade.Text,
+                                        edtEstado.Text,
+                                        edtPais.text,
+                                        uformatacao.retirarPontuacao(mskTelefone.Text));
+
+
+      TRY
+      DataModule1.enviarEmail( edtEmail.Text,
+                               edtNome.Text,
+                               uformatacao.retirarPontuacao(mskeditCPF.Text),
+                               edtRG.Text,
+                              edtCep.Text,
+                              edtLogradouro.Text,
+                              edtNumero.Text,
+                              edtComplemento.Text,
+                              edtBairro.Text,
+                              edtCidade.Text,
+                              edtEstado.Text,
+                              edtPais.text,
+                              uformatacao.retirarPontuacao(mskTelefone.Text);
+        ShowMessage('Email enviado com sucesso');
+      Except on E: Exception do
+        ShowMessage('Ocorreu um erro ao enviar o email. Mensagem do Erro' + e.Message);
+
+      END;
+
+
+
+      //  XMLDocument1.SaveToFile('C:\Ricardo.xml');
+      DataModule1.cdsCadastroCliente.Open;
+      limparRegistro();
+    end;
+  finally
+  end;
+end;
+
+procedure TForm2.btnSairClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TForm2.btnExcluirClick(Sender: TObject);
+var
+  buttonSelected : Integer;
+begin
+  buttonSelected := MessageDlg('Deseja excluir o registro ? ',mtCustom,
+                              [mbYes,mbNo,mbCancel], 0);
+
+  if buttonSelected = mrYes then
+  begin
+    DataModule1.cdsCadastroCliente.Delete;
+    DataModule1.cdsCadastroCliente.LogChanges := False;
+    DataModule1.cdsCadastroCliente.MergeChangeLog;
+    DataModule1.cdsCadastroCliente.SaveToFile('C:\Source\arquivoXml\clientes.xml',dfXMLUTF8);
+    limparRegistro();
+  end;
+end;
+
+procedure TForm2.btnNovoClick(Sender: TObject);
+var
+  buttonSelected : Integer;
+begin
+//  if FileExists('C:\Source\arquivoXml\clientes.xml') then
+//  begin
+//    buttonSelected := MessageDlg('Existe arquivo, deseja importa os cadastros ? ',mtCustom,
+//                              [mbYes,mbNo,mbCancel], 0);
+//    if buttonSelected = mrYes then
+//    begin
+//      DataModule1.cdsCadastroCliente.LoadFromFile('C:\Source\arquivoXml\clientes.xml');
+//      DataModule1.cdsCadastroCliente.LogChanges := False;
+//      DataModule1.cdsCadastroCliente.Open;
+//    end;
+//  end;
+  habilitarBotoes;
+  btnNovo.Enabled :=False;
+end;
+
+procedure TForm2.mskeditCPFExit(Sender: TObject);
+begin
+  if Length(mskeditCPF.Text) <= 11 then
+  begin
+    mskeditCPF.Text :=  uformatacao.formacpf(mskeditCPF.Text)
+  end
+  else
+  begin
+    mskeditCPF.Text :=  uformatacao.formacnpj(mskeditCPF.Text)
+  end;
+
+end;
+
+end.
